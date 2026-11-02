@@ -2,7 +2,11 @@ import { useEffect, useState, type FormEvent } from "react";
 import { KeyRound, Menu, Settings, UserRound } from "lucide-react";
 import type { User } from "@supabase/supabase-js";
 import type { WorkspacePage } from "../data/navigation";
-import { getSupabaseClient, isSupabaseConfigured } from "../services/supabase";
+import {
+  getSupabaseClient,
+  getSupabaseConfigurationError,
+  isSupabaseConfigured,
+} from "../services/supabase";
 import { DashboardSidebar } from "./DashboardSidebar";
 
 type SettingsPageProps = {
@@ -154,7 +158,7 @@ export function SettingsPage({ onNavigate, onOpenWelcome }: SettingsPageProps) {
                 {!isSupabaseConfigured && (
                   <div className="settings-notice" role="status">
                     <KeyRound size={17} />
-                    <div><strong>Account access needs Supabase</strong><p>Add <code>VITE_SUPABASE_URL</code> and <code>VITE_SUPABASE_ANON_KEY</code> to your local <code>.env</code> file, then restart the app. See the Supabase setup instructions in the README.</p></div>
+                    <div><strong>Account access needs Supabase</strong><p>{getSupabaseConfigurationError()} See the Supabase setup instructions in the README.</p></div>
                   </div>
                 )}
                 {isAnonymous && <p className="settings-account-note">You are using a private workspace on this device. Creating an account here keeps this workspace’s saved data with you.</p>}

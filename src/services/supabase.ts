@@ -27,7 +27,14 @@ export const isSupabaseConfigured = supabase !== null;
 
 export function getSupabaseConfigurationError(): string {
   if (configurationError) return configurationError;
-  return "Supabase is not configured. Add the project URL and anon key to .env to enable private data storage.";
+  const missingVariables = [
+    !supabaseUrl && "VITE_SUPABASE_URL",
+    !supabaseAnonKey && "VITE_SUPABASE_ANON_KEY",
+  ].filter((variable): variable is string => Boolean(variable));
+  if (missingVariables.length > 0) {
+    return `Missing ${missingVariables.join(" and ")}. Add the variable${missingVariables.length > 1 ? "s" : ""} to your local .env file or deployment environment, then rebuild the app.`;
+  }
+  return "Supabase could not be configured. Check that the project URL is valid and the public anon/publishable key is correct.";
 }
 
 let anonymousUserPromise: Promise<string> | null = null;
