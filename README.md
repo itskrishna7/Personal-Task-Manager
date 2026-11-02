@@ -149,10 +149,13 @@ anonymous sign-ins. Apply the migrations in filename order:
 3. `supabase/migrations/20261030020000_goal_task_links.sql`
 
 Each user-owned table enables row-level security and scopes access to the
-current Supabase user. This project uses anonymous sessions rather than a full
-registration/login flow; browser-persisted anonymous data is not recoverable
-through account credentials. Until Supabase is configured, server-backed
-modules display a connection state and do not simulate successful persistence.
+current Supabase user. **Settings** lets you create an account or sign in.
+Creating an account from an anonymous workspace upgrades that session so its
+Supabase-backed records remain associated with the account. If email
+confirmation is enabled in Supabase, confirm the address before signing in.
+Tasks stored only in browser local storage do not sync between devices.
+Until Supabase is configured, account actions are unavailable and Settings
+shows the required configuration.
 
 Run `npm.cmd run build` to type-check and create the production bundle. Start
 `npm.cmd run dev` to explore the dashboard and navigate between modules.

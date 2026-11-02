@@ -129,15 +129,15 @@ export function DashboardSidebar({
         <div className="sidebar-bottom">
           <div className="sidebar-section-label">{!collapsed && "PREFERENCES"}</div>
           <button
-            aria-label={collapsed ? "Settings (coming soon)" : undefined}
-            className="nav-item is-unavailable"
-            disabled
-            title={collapsed ? "Settings — coming in a future stage" : undefined}
+            aria-current={activePage === "settings" ? "page" : undefined}
+            aria-label={collapsed ? "Settings" : undefined}
+            className={`nav-item${activePage === "settings" ? " is-active" : ""}`}
+            onClick={() => { onNavigate("settings"); onCloseMobile(); }}
+            title={collapsed ? "Settings" : undefined}
             type="button"
           >
             <Settings size={18} strokeWidth={1.8} />
             {!collapsed && <span>Settings</span>}
-            <span className="nav-coming-soon">{collapsed ? "" : "SOON"}</span>
           </button>
           {!collapsed && (
             <div className="sidebar-upgrade">
@@ -148,15 +148,21 @@ export function DashboardSidebar({
               <small>YOUR SPACE IS TAKING SHAPE</small>
             </div>
           )}
-          <div className="sidebar-profile">
+          <button
+            aria-label="Open profile and account settings"
+            className="sidebar-profile"
+            onClick={() => { onNavigate("settings"); onCloseMobile(); }}
+            title={collapsed ? "Profile and account settings" : undefined}
+            type="button"
+          >
             <span className="profile-avatar">M</span>
             {!collapsed && (
               <>
-                <span className="profile-copy"><strong>Your profile</strong><small>Private workspace</small></span>
+                <span className="profile-copy"><strong>Your profile</strong><small>Account settings</small></span>
                 <Menu size={17} className="profile-menu-icon" />
               </>
             )}
-          </div>
+          </button>
         </div>
       </aside>
     </>

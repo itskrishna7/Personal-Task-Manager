@@ -9,6 +9,7 @@ export const workspacePages = [
   "productivity",
   "calendar",
   "insights",
+  "settings",
 ] as const;
 
 export type WorkspacePage = (typeof workspacePages)[number];

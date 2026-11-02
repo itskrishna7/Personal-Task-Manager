@@ -7,6 +7,11 @@ import { useTasks } from "./hooks/useTasks";
 import { WelcomePage } from "./WelcomePage";
 import type { WorkspacePage } from "./data/navigation";
 
+const SettingsPage = lazy(async () => {
+  const module = await import("./components/SettingsPage");
+  return { default: module.SettingsPage };
+});
+
 const BrainDumpPage = lazy(async () => {
   const module = await import("./components/BrainDumpPage");
   return { default: module.BrainDumpPage };
@@ -159,6 +164,10 @@ function App() {
 
   if (activePage === "insights") {
     return <Suspense fallback={<div className="brain-page-loading" role="status">Opening Insights…</div>}><InsightsPage onNavigate={setActivePage} onOpenWelcome={() => setShowWelcome(true)} /></Suspense>;
+  }
+
+  if (activePage === "settings") {
+    return <Suspense fallback={<div className="brain-page-loading" role="status">Opening Settings…</div>}><SettingsPage onNavigate={setActivePage} onOpenWelcome={() => setShowWelcome(true)} /></Suspense>;
   }
 
   return (
